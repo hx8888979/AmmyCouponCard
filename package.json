@@ -15,5 +15,8 @@
   },
   "dependencies": {
     "pdfmake": "^0.2.6"
+  },
+  "publishConfig": {
+    "hx8888979:registry": "https://npm.pkg.github.com"
   }
 }
