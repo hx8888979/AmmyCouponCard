@@ -6,7 +6,7 @@ const pdfMake = (window as any).pdfMake;
 const template = (name: string) => ([
     { "image": "logo", "width": 70, "alignment": "center" },
     " ",
-    { "text": ["Hi ", { "text": `${name}`, "bold": true }, ":"] },
+    { "text": ["Hi ", { "text": `${name}`, "bold": false }, ":"] },
     { "text": ["Thank you for your purchasing and supporting. For your next purchase, use coupon code: ", { "text": "THANKYOU27", "bold": true, "color": "#76ABEE" }, " and get 10% discount on any product."] },
     " ",
     { "text": ["If you have any feedbacks or questions, Email me at ", { "text": "info@ammy.studio", "color": "#76ABEE", "bold": true }] },
