@@ -21,7 +21,7 @@ module.exports = {
     extensions: ['.ts', '.js'],
   },
   output: {
-    filename: 'ammy-coupon-card.js',
+    filename: 'ammy-coupon-cards.js',
     path: path.resolve(__dirname, 'dist'),
   },
 };

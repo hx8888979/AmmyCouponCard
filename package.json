@@ -1,10 +1,11 @@
 {
-  "name": "ammy-coupon-card",
+  "name": "@hx8888979/ammy-coupon-cards",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/ammy-coupon-cards.js",
   "scripts": {
-    "build": "webpack"
+    "build": "webpack",
+    "test": "exit 0"
   },
   "author": "",
   "license": "ISC",
@@ -15,8 +16,5 @@
   },
   "dependencies": {
     "pdfmake": "^0.2.6"
-  },
-  "publishConfig": {
-    "hx8888979:registry": "https://npm.pkg.github.com"
   }
 }

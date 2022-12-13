@@ -5,7 +5,7 @@ interface Store {
     subscribe(listener: any): any;
 }
 
-class AmmyCouponCard {
+class AmmyCouponCards {
     protected store: Store;
     protected button: HTMLButtonElement;
 
@@ -69,7 +69,7 @@ class AmmyCouponCard {
     const init = () => {
         const root = document.getElementById('root');
         if (root && root.hasChildNodes()) {
-            (window as any).ammyCouponCard = new AmmyCouponCard();
+            (window as any).ammyCouponCards = new AmmyCouponCards();
         }
         else {
             setTimeout(init, 1000);

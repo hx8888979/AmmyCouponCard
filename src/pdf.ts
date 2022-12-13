@@ -19,6 +19,27 @@ const template = (name: string) => ([
     "Best Regards,"
 ]);
 
+const createDashLine = () => (
+    {
+        canvas: [
+            {
+                type: 'line',
+                x1: 0, y1: 395,
+                x2: 612, y2: 395,
+                dash: { length: 1, space: 5 },
+            },
+            {
+                type: 'line',
+                x1: 306, y1: 0,
+                x2: 306, y2: 791,
+                dash: { length: 1, space: 5 },
+
+            }
+        ],
+        absolutePosition: { x: 0, y: 0 }
+    }
+);
+
 function generateContent(names: string[]) {
     const pairs = names.reduce(
         (accumulator, _, currentIndex, array) => {
@@ -29,7 +50,7 @@ function generateContent(names: string[]) {
         }, [] as string[][]
     );
     return pairs.reduce(
-        (accumulator, pair) => {
+        (accumulator, pair, currentIndex) => {
             const columns = pair.reduce(
                 (accumulator, name, currentIndex) => {
                     accumulator.push({ stack: template(name), width: 226 });
@@ -39,8 +60,13 @@ function generateContent(names: string[]) {
                     return accumulator;
                 }, [] as any[]
             );
-            const element: any[] = [{ columns, unbreakable: true }];
-            element.push(Array(12).fill(' '));
+
+            const breakPage = currentIndex % 2 !== 0;
+            const element: any[] = [{ columns, ...(breakPage ? { pageBreak: "after" } : {}) }];
+            if (!breakPage) {
+                element.push(Array(12).fill(' '));
+                element.push(createDashLine());
+            }
 
             accumulator.push(element);
             return accumulator;

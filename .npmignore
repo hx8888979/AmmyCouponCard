@@ -1,0 +1,7 @@
+.vscode/
+.github/
+src/
+tampermonkey/
+tsconfig.json
+webpack.config.js
+.gitignore
