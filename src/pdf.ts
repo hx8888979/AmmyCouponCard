@@ -61,11 +61,11 @@ function generateContent(names: string[]) {
                 }, [] as any[]
             );
 
-            const breakPage = currentIndex % 2 !== 0;
-            const element: any[] = [{ columns, ...(breakPage ? { pageBreak: "after" } : {}) }];
-            if (!breakPage) {
+            const breakPage = currentIndex % 2 === 0;
+            const element: any[] = [{ columns, ...((breakPage && currentIndex > 0) ? { pageBreak: "before" } : {}) }];
+            if (breakPage) {
                 element.push(Array(12).fill(' '));
-                element.push(createDashLine());
+                // element.push(createDashLine());
             }
 
             accumulator.push(element);
