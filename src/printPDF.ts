@@ -39,7 +39,6 @@ export class AmmyPrinter {
   renderPreview() {
     const popup = document.createElement('div');
     popup.className = "overlay-mask";
-    popup.style.overflowY = "hidden";
     popup.innerHTML = `<style>@media only screen and (min-width: 650px) {.pdf-width {min-width: 640px;max-width: 100% !important;}}@media only screen and (max-width: 649px) {.pdf-width {max-width: 535px !important;}}</style><div class="overlay-region"><div class="overlay-view pdf-width"><div class="overlay-header"><span class="overlay-title">Preview</span></div><div class="overlay-body"><div style="overflow-y: hidden;height: 590px;"><embed style="position: relative;top: -60px;width: 100%;height: 650px;" src="${this.url}"></div><div hidden><canvas id="ammy-print-render"></div></div><div class="overlay-footer clearfix"><div id="ammy-print-button-group"><button id="ammy-print-cancel"class="btn btn-secondary">Cancel</button><button id="ammy-print-print"class="btn btn-orange">Print</button></div><div id="ammy-print-progress-group" hidden><progress id="ammy-print-progress" value="0" max="100"></div></div></div></div>`;
 
     this.printButton = popup.querySelector("#ammy-print-print") as HTMLButtonElement;
