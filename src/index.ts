@@ -1,5 +1,8 @@
 /** test */
 import { generatePDF } from "./pdf";
+import { AmmyPrinter } from "./printPDF";
+import { xmlhttpRequest } from "./util";
+
 interface Store {
     getState(): any;
     subscribe(listener: any): any;
@@ -8,6 +11,7 @@ interface Store {
 class AmmyCouponCards {
     protected store: Store;
     protected button: HTMLButtonElement;
+    protected printButton?: HTMLButtonElement;
 
     private findStore(): Store {
         const rootElement = document.getElementById('root');
@@ -44,9 +48,74 @@ class AmmyCouponCards {
         return button;
     }
 
+    protected async injectPrintButton() {
+        this.printButton = document.createElement('button');
+        const findFooter = new Promise((resolve, reject) => {
+            let retry = 0;
+            const finder = () => {
+                const root = document.querySelector(".overlay-footer");
+                if (root) {
+                    resolve(root);
+                } else {
+                    retry += 1;
+                    if (retry <= 6) {
+                        setTimeout(finder, 500)
+                    } else {
+                        reject();
+                    }
+                }
+            }
+            setTimeout(finder, 0)
+        });
+
+        try {
+            const overlayFooter = (await findFooter as HTMLElement)?.firstChild;
+            const span = document.createElement('span') as HTMLSpanElement;
+            span.appendChild(this.printButton);
+            span.style.display = "inline-flex";
+
+            this.printButton.className = "btn btn-orange";
+            this.printButton.innerText = "Ammy Printer";
+            span.setAttribute("data-tooltip", "Unable to connect to printer or busy");
+            this.printButton.disabled = true;
+
+            overlayFooter?.appendChild(span);
+
+            try {
+                const response = await xmlhttpRequest("GET", "http://ammyprinter.local/api/info");
+                const data = JSON.parse(response.response);
+
+                if (data.status === 1) {
+                    span.removeAttribute("data-tooltip");
+                    this.printButton.disabled = false;
+                    this.printButton.onclick = this.onPrintButtonClick.bind(this);
+                }
+            } catch {
+                console.error("cann't connect to printer");
+            }
+
+        } catch {
+            this.printButton = undefined;
+        }
+    }
+
     protected storeHandler() {
         const state = this.store.getState();
         this.button.disabled = state.ui.orders_list.selected_order_ids.count() == 0;
+        if (state.ui.print_shipping_labels_overlay.is_shown) {
+            if (!this.printButton) {
+                this.injectPrintButton();
+            }
+        } else {
+            this.printButton = undefined;
+        }
+    }
+
+    protected onPrintButtonClick() {
+        const state = this.store.getState();
+        const url = `${state.ui.print_shipping_labels_overlay.download_url}&print_format=single_flush&include_order_details=0`;
+        (document.querySelector(".overlay-footer div button.btn-secondary") as HTMLButtonElement)?.click();
+        new AmmyPrinter(url);
     }
 
     protected onButtonClick() {

@@ -1,6 +1,6 @@
 {
   "name": "@hx8888979/ammy-coupon-cards",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "",
   "main": "dist/ammy-coupon-cards.js",
   "scripts": {
@@ -15,6 +15,7 @@
     "webpack-cli": "^5.0.1"
   },
   "dependencies": {
+    "pdfjs-dist": "^3.3.122",
     "pdfmake": "^0.2.6"
   }
 }

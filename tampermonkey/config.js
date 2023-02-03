@@ -10,7 +10,7 @@ const config = {
 // @author       XGG
 // @match        https://www.etsy.com/your/orders/sold*
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
-// @grant        none
+// @grant        GM_xmlhttpRequest
 // @require      https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.6/pdfmake.min.js
 // @run-at document-idle
 // ==/UserScript==`
